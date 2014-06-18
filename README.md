@@ -17,7 +17,8 @@ When pushing images built from one of the dockerfile, remember to line up the do
 docker tag image_id cfmeqe/docker-repo-name:docker-image-tag
 docker push docker tag image_id cfmeqe/docker-repo-name:docker-image-tag
 
-# If replacing an exisitng tag, you might need to git tag -f
-git tag docker-image-tag
+# If replacing an existing tag, you'll need to git tag -f
+# Omit the cfmeqe here, since it's redundant, then replace the colon with a slash
+git tag docker-repo-name/docker-image-tag
 git push --tags
 ```
