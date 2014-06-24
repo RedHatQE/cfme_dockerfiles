@@ -16,4 +16,4 @@ export PATH="/usr/bin:/root/firefox:/root/chrome-driver:$PATH"
 fluxbox &
 
 # Start the selenium server
-xterm -maximized -e java -jar /root/selenium-server/selenium-server-standalone-2.42.2.jar -ensureCleanSession -trustAllSSLCertificates 
+xterm -maximized -e java -jar /root/selenium-server/selenium-server-standalone.jar -ensureCleanSession -trustAllSSLCertificates
