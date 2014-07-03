@@ -9,7 +9,7 @@ echo $PASS | passwd --stdin root
 
 export DISPLAY=:99
 Xvfb :99 -shmem -screen 0 1280x1024x16 &
-x11vnc -display :99 -N -forever &
+x11vnc -display :99 -N -shared -forever &
 export PATH="/usr/bin:/root/firefox:/root/chrome-driver:$PATH"
 
 # Start the window manager
