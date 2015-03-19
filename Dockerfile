@@ -1,6 +1,6 @@
 # selenium base image, autobuilt by docker hub so we can be a little lazy
 # when we build sel_ff_chrome
-FROM fedora:latest
+FROM fedora:rawhide
 MAINTAINER "CFME QE <cloudforms-qe@redhat.com>"
 # Bring in all the dependencies; we could probably do this with yum deplist and bash
 # shenanigans, but the manual method does the job well enough
