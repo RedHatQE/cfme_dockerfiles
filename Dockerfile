@@ -1,8 +1,8 @@
 # selenium base image, autobuilt by docker hub so we can be a little lazy
 # when we build sel_ff_chrome
-FROM fedora:rawhide
+FROM fedora:21
 MAINTAINER "CFME QE <cloudforms-qe@redhat.com>"
-# Bring in all the dependencies; we could probably do this with yum deplist and bash
+# Bring in all the dependencies; we could probably do this with deplist and bash
 # shenanigans, but the manual method does the job well enough
 RUN yum -y update
 RUN yum -y install http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm; rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
