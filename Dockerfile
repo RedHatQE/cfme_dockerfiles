@@ -8,7 +8,7 @@ ENV FIREFOX_VERSION 38.6
 # chrome
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
     /root/google-chrome-stable_current_x86_64.rpm
-RUN yum install -y /root/google-chrome-stable_current_x86_64.rpm && \
+RUN dnf install -y /root/google-chrome-stable_current_x86_64.rpm && \
     rm -f /root/google-chrome-stable_current_x86_64.rpm
 # chromedriver
 ADD http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
