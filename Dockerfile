@@ -8,7 +8,7 @@ RUN yum -y update && \
     yum -y install http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm && \
     rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux && \
     yum -y install x11vnc wget fluxbox bzip2 xterm nano xorg-x11-server-Xvfb \
-    net-tools dbus-glib gtk2 java-1.8.0-openjdk-headless flash-plugin nspluginwrapper \
+    net-tools dbus-glib dbus-x11 gtk2 java-1.8.0-openjdk-headless flash-plugin nspluginwrapper \
     alsa-plugins-pulseaudio libcurl unzip xdg-utils redhat-lsb GConf2 \
     libXScrnSaver xorg-x11-fonts-ISO8859-1-75dpi xorg-x11-fonts-ISO8859-1-100dpi \
     dejavu* openssh-server nginx supervisor python-gunicorn python-flask libexif && \
