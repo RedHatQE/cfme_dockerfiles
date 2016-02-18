@@ -7,6 +7,12 @@ echo $PASS | passwd --stdin root
 /usr/sbin/sshd-keygen -A
 /usr/sbin/sshd
 
+# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1286787
+if [ ! -f /etc/machine-id ]; then
+  echo "7f496b3288e64931bd91bf723697e19c" > /etc/machine-id
+fi
+
+# Start Xvfb and x11vnc
 export DISPLAY=:99
 export PATH="/usr/bin:/root/firefox:/root/chrome-driver:$PATH"
 
