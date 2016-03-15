@@ -7,13 +7,20 @@ echo $PASS | passwd --stdin root
 /usr/sbin/sshd-keygen -A
 /usr/sbin/sshd
 
+# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1286787
+if [ ! -f /etc/machine-id ]; then
+  echo "7f496b3288e64931bd91bf723697e19c" > /etc/machine-id
+fi
+
+# Start Xvfb and x11vnc
 export DISPLAY=:99
-Xvfb :99 -shmem -screen 0 1280x1024x16 &
-x11vnc -display :99 -N -shared -forever &
 export PATH="/usr/bin:/root/firefox:/root/chrome-driver:$PATH"
 
-# Start the window manager
+Xvfb $DISPLAY -shmem -screen 0 '1280x1024x16' &
+sleep 5
+
 fluxbox &
+x11vnc -display $DISPLAY -N -shared -forever &
 
 # Start the selenium server
 xterm -maximized -e java -jar /root/selenium-server/selenium-server-standalone.jar -ensureCleanSession -trustAllSSLCertificates
