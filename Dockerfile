@@ -2,8 +2,8 @@
 FROM cfmeqe/sel_base:latest
 
 ENV CHROME_DRIVER_VERSION 2.21
-ENV SELENIUM_VERSION 2.51
-ENV FIREFOX_VERSION 38.6
+ENV SELENIUM_VERSION 2.53
+ENV FIREFOX_VERSION 45.5
 
 # chrome
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
