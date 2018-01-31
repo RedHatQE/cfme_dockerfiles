@@ -3,7 +3,7 @@ FROM cfmeqe/sel_base:latest
 
 ENV CHROME_DRIVER_VERSION 2.21
 ENV SELENIUM_VERSION 2.53
-ENV FIREFOX_VERSION 45.5
+ENV FIREFOX_VERSION 45.9
 
 # chrome
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
@@ -20,7 +20,7 @@ RUN mkdir -p /root/chrome-driver &&\
 ADD ./xstartup.sh /xstartup.sh
 RUN chmod 775 /xstartup.sh
 # selenium
-ADD http://selenium-release.storage.googleapis.com/$SELENIUM_VERSION/selenium-server-standalone-$SELENIUM_VERSION.0.jar \
+ADD http://selenium-release.storage.googleapis.com/$SELENIUM_VERSION/selenium-server-standalone-$SELENIUM_VERSION.1.jar \
     /root/selenium-server/selenium-server-standalone.jar
 # firefox
 ADD https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION.0esr/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.0esr.tar.bz2 \
