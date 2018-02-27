@@ -24,4 +24,4 @@ fluxbox &
 x11vnc -display $DISPLAY -N -shared -forever &
 
 # Start the selenium server
-xterm -maximized -e java -jar /root/selenium-server/selenium-server-standalone.jar -ensureCleanSession -trustAllSSLCertificates
+xterm -maximized -e java -jar /root/selenium-server/selenium-server-standalone.jar
