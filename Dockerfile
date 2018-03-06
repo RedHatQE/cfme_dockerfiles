@@ -2,15 +2,15 @@
 #FROM cfmeqe/sel_base:latest
 FROM sel_base
 
-ENV CHROME_DRIVER_VERSION 2.21
+ENV CHROME_DRIVER_VERSION 2.35
 ENV SELENIUM_VERSION 3.9.1
 ENV FIREFOX_VERSION 58.0.2
 
 # chrome
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
     /root/google-chrome-stable_current_x86_64.rpm
-#RUN dnf install -y /root/google-chrome-stable_current_x86_64.rpm && \
-#    rm -f /root/google-chrome-stable_current_x86_64.rpm
+RUN dnf install -y /root/google-chrome-stable_current_x86_64.rpm && \
+    rm -f /root/google-chrome-stable_current_x86_64.rpm
 # chromedriver
 ADD http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
     /root/chrome-driver/chromedriver_linux64.zip
