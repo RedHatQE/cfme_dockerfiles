@@ -1,6 +1,7 @@
 # sections ordered from least likely to change to most
 #FROM cfmeqe/sel_base:latest
-FROM sel_base
+#FROM sel_base
+FROM psav/sel_base
 
 ENV CHROME_DRIVER_VERSION 2.35
 ENV SELENIUM_VERSION 3.9.1
