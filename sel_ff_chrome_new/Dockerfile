@@ -1,16 +1,17 @@
 # sections ordered from least likely to change to most
-#FROM cfmeqe/sel_base:latest
-FROM sel_base
+FROM cfmeqe/sel_base_new:latest
+#FROM sel_base
 
 ENV CHROME_DRIVER_VERSION 2.35
 ENV SELENIUM_VERSION 3.9.1
 ENV FIREFOX_VERSION 58.0.2
 
-# chrome
-ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
-    /root/google-chrome-stable_current_x86_64.rpm
-RUN dnf install -y /root/google-chrome-stable_current_x86_64.rpm && \
-    rm -f /root/google-chrome-stable_current_x86_64.rpm
+
+RUN dnf install -y fedora-workstation-repositories 'dnf-command(config-manager)' \
+ && dnf config-manager --set-enabled google-chrome \
+ && dnf install -y google-chrome-stable \
+ && dnf clean all -y
+
 # chromedriver
 ADD http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
     /root/chrome-driver/chromedriver_linux64.zip
