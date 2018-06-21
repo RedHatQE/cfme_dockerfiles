@@ -7,7 +7,7 @@ USER 0
 
 ENV CHROME_DRIVER_VERSION 2.35
 ENV SELENIUM_VERSION 3.12.0
-ENV FIREFOX_VERSION 60.0esr
+ENV FIREFOX_VERSION 60.0.1esr
 
 # chrome
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
