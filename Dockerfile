@@ -1,11 +1,12 @@
 # sections ordered from least likely to change to most
 #FROM cfmeqe/sel_base:latest
-#FROM sel_base
-FROM psav/sel_base
+FROM sel_base
+#FROM psav/sel_base
 
 ENV CHROME_DRIVER_VERSION 2.35
 ENV SELENIUM_VERSION 3.9.1
-ENV FIREFOX_VERSION 45.8
+ENV FIREFOX_VERSION 45.9.0esr
+ENV GECKO_DRIVER_VERSION 0.21.0
 
 USER 0
 
@@ -27,10 +28,10 @@ RUN chmod 775 /xstartup.sh
 ADD ./selenium-server-standalone-$SELENIUM_VERSION.jar \
     /root/selenium-server/selenium-server-standalone.jar
 # firefox
-ADD ./firefox-$FIREFOX_VERSION.tar.bz2 \
+COPY ./firefox-$FIREFOX_VERSION.tar.bz2 \
     /root/firefox.tar.bz2
-#ADD https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz \
-#    /root/gecko.tar.gz
+COPY ./geckodriver-v$GECKO_DRIVER_VERSION-linux64.tar.gz \
+    /root/gecko.tar.gz
 
 RUN tar -C /root/ -xjvf /root/firefox.tar.bz2 && rm -f /root/firefox.tar.bz2
 RUN tar -C /root/firefox/ -xvf /root/gecko.tar.gz && rm -f /root/gecko.tar.gz
