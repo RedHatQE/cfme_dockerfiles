@@ -1,22 +1,21 @@
 # sections ordered from least likely to change to most
 #FROM cfmeqe/sel_base:latest
 FROM sel_base
-#FROM psav/sel_base
-
-ENV CHROME_DRIVER_VERSION 2.35
-ENV SELENIUM_VERSION 3.9.1
-ENV FIREFOX_VERSION 45.9.0esr
-ENV GECKO_DRIVER_VERSION 0.21.0
+#FROM psav/sel_base:latest
 
 USER 0
 
+ENV CHROME_DRIVER_VERSION 2.35
+ENV SELENIUM_VERSION 3.12.0
+ENV FIREFOX_VERSION 60.1.0esr
+
 # chrome
-ADD ./google-chrome-stable_current_x86_64.rpm \
+ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
     /root/google-chrome-stable_current_x86_64.rpm
 RUN dnf install -y /root/google-chrome-stable_current_x86_64.rpm && \
     rm -f /root/google-chrome-stable_current_x86_64.rpm
 # chromedriver
-ADD ./chromedriver_linux64.zip \
+ADD http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
     /root/chrome-driver/chromedriver_linux64.zip
 RUN mkdir -p /root/chrome-driver &&\
     unzip -d /root/chrome-driver/ /root/chrome-driver/chromedriver_linux64.zip &&\
@@ -25,12 +24,12 @@ RUN mkdir -p /root/chrome-driver &&\
 ADD ./xstartup.sh /xstartup.sh
 RUN chmod 775 /xstartup.sh
 # selenium
-ADD ./selenium-server-standalone-$SELENIUM_VERSION.jar \
+ADD http://selenium-release.storage.googleapis.com/3.12/selenium-server-standalone-$SELENIUM_VERSION.jar \
     /root/selenium-server/selenium-server-standalone.jar
 # firefox
-COPY ./firefox-$FIREFOX_VERSION.tar.bz2 \
+ADD https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
     /root/firefox.tar.bz2
-COPY ./geckodriver-v$GECKO_DRIVER_VERSION-linux64.tar.gz \
+ADD https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz \
     /root/gecko.tar.gz
 
 RUN tar -C /root/ -xjvf /root/firefox.tar.bz2 && rm -f /root/firefox.tar.bz2
