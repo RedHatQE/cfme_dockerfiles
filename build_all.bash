@@ -13,5 +13,5 @@ BUILDS=(
 
 for build in ${BUILDS[*]}
 do
-	docker build ${build} -t cfmeqe/${build}:latest || { echo $build failed; exit 1; }
+	docker build . -f Dockerfile.${build} -t cfmeqe/${build}:latest || { echo $build failed; exit 1; }
 done
