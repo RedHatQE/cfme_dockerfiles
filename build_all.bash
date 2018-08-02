@@ -8,10 +8,6 @@ BUILDS=(
 	stable
 )
 
-
-# docker pull cfmeqe/sel_base:latest
-# docker pull cfmeqe/sel_ff_chrome:latest
-
 for build in ${BUILDS[*]}
 do
 	docker build . -f Dockerfile.${build} -t cfmeqe/${build}:latest || { echo $build failed; exit 1; }
