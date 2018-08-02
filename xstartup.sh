@@ -28,4 +28,4 @@ touch allout.txt
 xterm -maximized -e tail -f allout.txt &
 
 # Start the selenium server
-java -jar /root/selenium-server/selenium-server-standalone.jar > allout.txt 2>&1
+java -jar /root/selenium-server/selenium-server-standalone.jar 2>&1 | tee -a allout.txt
