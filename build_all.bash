@@ -5,6 +5,7 @@ BUILDS=(
 	sel_base_new
 	sel_ff_chrome
 	sel_ff_chrome_new
+	stable
 )
 
 
