@@ -23,5 +23,9 @@ sleep 5
 fluxbox &
 x11vnc -display $DISPLAY -N -shared -forever &
 
+touch allout.txt
+
+xterm -maximized -e tail -f allout.txt &
+
 # Start the selenium server
-xterm -maximized -e java -jar /root/selenium-server/selenium-server-standalone.jar
+java -jar /root/selenium-server/selenium-server-standalone.jar 2>&1 | tee -a allout.txt
