@@ -1,5 +1,5 @@
 # sections ordered from least likely to change to most
-FROM cfmeqe/sel_base:latest
+FROM cfmeqe/sel_base_fc28:latest
 
 ENV CHROME_DRIVER_VERSION 2.21
 ENV SELENIUM_VERSION 2.53
