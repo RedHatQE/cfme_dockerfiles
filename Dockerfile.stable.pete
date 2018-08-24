@@ -1,0 +1,56 @@
+FROM cfmeqe/sel_base_fc28
+
+#TODO: figure why user 0 was needed
+#USER 0
+
+RUN groupadd -g 1001 appuser && \
+    useradd -m -r -u 1001 -g appuser appuser
+
+ENV CHROME_DRIVER_VERSION 2.35
+ENV SELENIUM_VERSION 3.12.0
+ENV FIREFOX_VERSION 60.1.0esr
+ENV GECKODRIVER_VERSION v0.20.1
+
+# chrome
+ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
+    /home/appuser/google-chrome-stable_current_x86_64.rpm
+RUN dnf install -y /home/appuser/google-chrome-stable_current_x86_64.rpm && \
+    rm -f /home/appuser/google-chrome-stable_current_x86_64.rpm
+
+# chromedriver
+USER 1001
+RUN mkdir -p /home/appuser/chrome-driver
+ADD http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
+    /home/appuser/chrome-driver/chromedriver_linux64.zip
+USER 0
+RUN chown appuser:appuser /home/appuser/chrome-driver/chromedriver_linux64.zip
+USER 1001
+RUN unzip -d /home/appuser/chrome-driver/ /home/appuser/chrome-driver/chromedriver_linux64.zip &&\
+    rm -f /home/appuser/chrome-driver/chromedriver_linux64.zip
+# xstartup
+USER 0
+ADD ./xstartup.sh /xstartup.sh
+RUN chmod 775 /xstartup.sh
+# selenium
+# TODO: make better url scheme
+ADD http://selenium-release.storage.googleapis.com/3.12/selenium-server-standalone-$SELENIUM_VERSION.jar \
+    /home/appuser/selenium-server/selenium-server-standalone.jar
+RUN chown appuser:appuser /home/appuser/selenium-server/selenium-server-standalone.jar
+# firefox
+ADD https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
+    /home/appuser/firefox.tar.bz2
+ADD https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz \
+    /home/appuser/gecko.tar.gz
+RUN chown appuser:appuser /home/appuser/firefox.tar.bz2
+RUN chown appuser:appuser /home/appuser/gecko.tar.gz
+
+RUN tar -C /home/appuser/ -xjvf /home/appuser/firefox.tar.bz2 && rm -f /home/appuser/firefox.tar.bz2
+RUN tar -C /home/appuser/firefox/ -xvf /home/appuser/gecko.tar.gz && rm -f /home/appuser/gecko.tar.gz
+
+# runtime
+EXPOSE 4444
+EXPOSE 5999
+
+USER 1001
+
+CMD ["/bin/bash", "/xstartup.sh"]
