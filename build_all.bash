@@ -2,7 +2,6 @@
 
 BUILDS=(
 	sel_base_fc28
-	sel_ff_chrome
 	stable
 )
 
