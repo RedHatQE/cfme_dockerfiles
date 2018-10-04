@@ -5,7 +5,7 @@ USER 0
 
 ENV CHROME_DRIVER_VERSION 2.35
 ENV SELENIUM_VERSION 3.14.0
-ENV FIREFOX_VERSION 60.1.0esr
+ENV FIREFOX_VERSION 60.2.2esr
 ENV GECKODRIVER_VERSION v0.20.1
 
 # chrome
@@ -36,6 +36,7 @@ ADD https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSIO
 
 RUN tar -C /root/ -xjvf /root/firefox.tar.bz2 && rm -f /root/firefox.tar.bz2
 RUN tar -C /root/firefox/ -xvf /root/gecko.tar.gz && rm -f /root/gecko.tar.gz
+RUN mkdir -p ~/.cache/dconf
 
 # runtime
 EXPOSE 4444
