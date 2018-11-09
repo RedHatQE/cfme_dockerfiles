@@ -1,7 +1,7 @@
 #!bin/bash
 
 BUILDS=(
-	sel_base_fc28
+	sel_base_fc29
 	stable
 )
 
