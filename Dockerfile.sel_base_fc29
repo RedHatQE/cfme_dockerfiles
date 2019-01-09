@@ -3,25 +3,26 @@ RUN rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
 RUN dnf -y update && \
     dnf install -y wget \
-                       vim \
-                       fluxbox \
-                       bzip2 \
-                       xterm \
-                       nano \
-                       net-tools \
-                       dbus-glib gtk2 \
-                       java-1.8.0-openjdk \
-                       flash-plugin \
-                       alsa-plugins-pulseaudio \
-                       libcurl \
-                       unzip \
-                       xdg-utils \
-                       redhat-lsb \
-                       gtk3 \
-                       tigervnc-server \
-                       dejavu-sans-fonts \
-                       dejavu-serif-fonts \
-                       xdotool && \
+                   vim \
+                   fluxbox \
+                   bzip2 \
+                   xterm \
+                   nano \
+                   net-tools \
+                   dbus-glib gtk2 \
+                   java-1.8.0-openjdk \
+                   flash-plugin \
+                   alsa-plugins-pulseaudio \
+                   libcurl \
+                   unzip \
+                   xdg-utils \
+                   redhat-lsb \
+                   gtk3 \
+                   tigervnc-server \
+                   dejavu-sans-fonts \
+                   dejavu-serif-fonts \
+                   xdotool \
+		           nginx && \
     dnf clean all
 
 
