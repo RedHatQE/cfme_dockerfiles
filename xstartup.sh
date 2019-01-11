@@ -5,7 +5,8 @@ export PATH="/usr/bin:/root/firefox:/root/chrome-driver:/opt/google/chrome:$PATH
 
 vncserver ${DISPLAY} -Log *:stderr:100 >> /allout.txt
 
-# start nginx which will proxy requests to selenium server
+# start nginx which will proxy requests to selenium server. nginx listens to requests on 4444
+# and forwards them to 4445
 nginx
 
 # start the selenium server
