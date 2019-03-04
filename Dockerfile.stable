@@ -60,6 +60,13 @@ RUN  sed -i -- 's/worker_processes.*;/worker_processes 1;/' /etc/nginx/nginx.con
 RUN tar -C /root/ -xjvf /root/firefox.tar.bz2 && rm -f /root/firefox.tar.bz2
 RUN tar -C /root/firefox/ -xvf /root/gecko.tar.gz && rm -f /root/gecko.tar.gz
 
+
+# create default profile for FF and disable auto update
+ENV DEFAULT_PROFILE_NAME mylovelyprofile
+
+RUN /root/firefox/firefox -headless -CreateProfile $DEFAULT_PROFILE_NAME && \
+    echo 'user_pref("app.update.enabled", false);' > $(find ~/.mozilla/firefox -name "*.$DEFAULT_PROFILE_NAME" -type d)/user.js
+
 # Add the xstartup file into the image and add config.
 RUN mkdir /root/.vnc
 ADD ./vncxstartup /root/.vnc/xstartup
