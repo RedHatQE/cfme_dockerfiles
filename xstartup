@@ -9,5 +9,5 @@ unset DBUS_SESSION_BUS_ADDRESS
 xsetroot -solid grey
 fluxbox &
 sleep 5
-xterm -maximized -e "tail -f /allout.txt" -ls -title "$VNCDESKTOP Desktop" &
+xterm -maximized -e "tail -f ${HOME}/allout.txt" -ls -title "$VNCDESKTOP Desktop" &
 
