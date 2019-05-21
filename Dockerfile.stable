@@ -10,7 +10,6 @@ ENV SELENIUM_VERSION=3.14.0 \
 ENV SELENIUM_PATH=$SELENIUM_HOME/selenium-server/selenium-server-standalone.jar \
     PATH=$SELENIUM_HOME/firefox:/opt/google/chrome:$PATH
 
-RUN useradd -ms /bin/bash selenium
 WORKDIR $SELENIUM_HOME
 
 # selenium server port
@@ -58,8 +57,9 @@ RUN chmod a+x $SELENIUM_HOME/.vnc/xstartup && \
     chmod a+x $SELENIUM_HOME/entrypoint.sh && \
     touch $SELENIUM_HOME/.Xauthority && \
     touch allout.txt && \
-    chown -R selenium:selenium $SELENIUM_HOME
+    chgrp -R 0 $SELENIUM_HOME && \
+    chmod -R g=u $SELENIUM_HOME
 
-USER selenium
+USER 1001
 
 ENTRYPOINT ["/home/selenium/entrypoint.sh"]
