@@ -53,12 +53,12 @@ RUN tar -C . -xjvf firefox-$FIREFOX_VERSION.tar.bz2 && \
 # Add the xstartup file into the image and add config.
 COPY ./xstartup ./vncconfig ./passwd .vnc/
 COPY ./entrypoint.sh .
-RUN chmod a+x $SELENIUM_HOME/.vnc/xstartup && \
-    chmod a+x $SELENIUM_HOME/entrypoint.sh && \
-    touch $SELENIUM_HOME/.Xauthority && \
+RUN touch $SELENIUM_HOME/.Xauthority && \
     touch allout.txt && \
     chgrp -R 0 $SELENIUM_HOME && \
-    chmod -R g=u $SELENIUM_HOME
+    chmod -R g=u $SELENIUM_HOME && \
+    chmod a+x $SELENIUM_HOME/.vnc/xstartup && \
+    chmod a+x $SELENIUM_HOME/entrypoint.sh
 
 USER 1001
 
