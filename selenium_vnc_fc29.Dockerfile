@@ -28,9 +28,8 @@ RUN dnf install -y google-chrome-stable_current_x86_64.rpm && \
 # chromedriver
 RUN CHROME_VERSION=$(rpm -q --qf "%{VERSION}\n" google-chrome-stable|sed -Ee 's/^(.*)\..*/\1/') && \
     CHROME_DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION) && \
-    mkdir -p chrome-driver && \
     curl -O https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
-    unzip -d chrome-driver/ chromedriver_linux64.zip && \
+    unzip -d /usr/bin/ chromedriver_linux64.zip && \
     rm -f chromedriver_linux64.zip
 
 # selenium server
@@ -51,13 +50,13 @@ RUN tar -C . -xjvf firefox-$FIREFOX_VERSION.tar.bz2 && \
     echo 'user_pref("app.update.enabled", false);' > $(find ~/.mozilla/firefox -name "*.$DEFAULT_PROFILE_NAME" -type d)/user.js
 
 # Add the xstartup file into the image and add config.
-COPY ./xstartup ./vncconfig ./passwd .vnc/
+COPY ./xstartup ./vncconfig ./passwd /root/.vnc/
 COPY ./entrypoint.sh .
 RUN touch $SELENIUM_HOME/.Xauthority && \
     touch allout.txt && \
     chgrp -R 0 $SELENIUM_HOME && \
     chmod -R g=u $SELENIUM_HOME && \
-    chmod a+x $SELENIUM_HOME/.vnc/xstartup && \
+    chmod a+x /root/.vnc/xstartup && \
     chmod a+x $SELENIUM_HOME/entrypoint.sh
 
 USER 1001
