@@ -51,7 +51,7 @@ RUN tar -C . -xjvf firefox-$FIREFOX_VERSION.tar.bz2 && \
     echo 'user_pref("app.update.enabled", false);' > $(find ~/.mozilla/firefox -name "*.$DEFAULT_PROFILE_NAME" -type d)/user.js
 
 # Add the xstartup file into the image and add config.
-COPY ./xstartup ./vncconfig ./passwd .vnc/
+COPY ./xstartup ./vncconfig .vnc/
 COPY ./entrypoint.sh .
 RUN touch $SELENIUM_HOME/.Xauthority && \
     touch allout.txt && \
