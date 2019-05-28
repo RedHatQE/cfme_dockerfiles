@@ -9,4 +9,4 @@ unset DBUS_SESSION_BUS_ADDRESS
 xsetroot -solid grey
 fluxbox &
 sleep 5
-xterm -maximized -e "java -jar $SELENIUM_PATH -port 4445 2>&1 | tee -a $SELENIUM_HOME/allout.txt" &
+xterm -maximized -e "java -jar $SELENIUM_PATH -port 4445 2>&1 >> $SELENIUM_HOME/allout.txt"

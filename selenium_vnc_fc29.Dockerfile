@@ -62,4 +62,4 @@ RUN touch $SELENIUM_HOME/.Xauthority && \
 
 USER 1001
 
-ENTRYPOINT ["/home/selenium/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
