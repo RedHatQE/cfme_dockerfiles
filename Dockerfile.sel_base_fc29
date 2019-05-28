@@ -21,8 +21,7 @@ RUN dnf -y update && \
                    tigervnc-server \
                    dejavu-sans-fonts \
                    dejavu-serif-fonts \
-                   xdotool \
-		           nginx && \
+                   xdotool && \
     dnf clean all
 
 

@@ -54,7 +54,7 @@ RUN tar -C . -xjvf firefox-$FIREFOX_VERSION.tar.bz2 && \
 COPY ./xstartup ./vncconfig .vnc/
 COPY ./entrypoint.sh .
 RUN touch $SELENIUM_HOME/.Xauthority && \
-    touch allout.txt && \
+    mkdir -p $SELENIUM_HOME/.cache/dconf && \
     chgrp -R 0 $SELENIUM_HOME && \
     chmod -R g=u $SELENIUM_HOME && \
     chmod a+x $SELENIUM_HOME/.vnc/xstartup && \
