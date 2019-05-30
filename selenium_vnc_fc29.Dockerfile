@@ -1,6 +1,6 @@
 FROM cfmeqe/sel_base_fc29
 
-ENV SELENIUM_VERSION=3.14.0 \
+ENV SELENIUM_VERSION=3.141.59 \
     SELENIUM_HOME=/home/selenium \
     SELENIUM_PORT=4445 \
     FIREFOX_VERSION=60.4.0esr \
@@ -45,7 +45,7 @@ RUN curl -LO https://github.com/mozilla/geckodriver/releases/download/$GECKODRIV
     rm -f geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
 
 # selenium server
-ADD http://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-$SELENIUM_VERSION.jar $SELENIUM_PATH
+ADD http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-$SELENIUM_VERSION.jar $SELENIUM_PATH
 
 # Add the xstartup file into the image and add config.
 COPY ./xstartup ./vncconfig .vnc/
