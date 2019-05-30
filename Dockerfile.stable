@@ -47,16 +47,32 @@ RUN curl -LO https://github.com/mozilla/geckodriver/releases/download/$GECKODRIV
 # selenium server
 ADD http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-$SELENIUM_VERSION.jar $SELENIUM_PATH
 
+# nginx starts 5 workers by default what's too much for one selenium server.
+# So, let's decrease it to 1
+
+# nginx shows a warning about not enough hash size by default. Below command multiplies default
+# value to 2
+RUN sed -i -- 's/worker_processes.*;/worker_processes 1;/' /etc/nginx/nginx.conf && \
+    sed -i -- 's/types_hash_max_size.*;/types_hash_max_size 4096;/' /etc/nginx/nginx.conf && \
+    sed -i -- 's/80 default_server;/8081 default_server;/' /etc/nginx/nginx.conf && \
+    sed -i -- 's/^user/#user/' /etc/nginx/nginx.conf
+
+#copying nginx config for selenium proxy
+COPY ./nginx-selenium.conf /etc/nginx/conf.d
+
 # Add the xstartup file into the image and add config.
 COPY ./xstartup ./config .vnc/
+
+COPY ./entrypoint.sh .
 
 # Create required dirs and files, change permissions in order to work in openshift
 RUN touch $SELENIUM_HOME/.Xauthority && \
     mkdir -p $SELENIUM_HOME/.cache/dconf && \
-    chgrp -R 0 $SELENIUM_HOME && \
-    chmod -R g=u $SELENIUM_HOME && \
-    chmod a+x $SELENIUM_HOME/.vnc/xstartup
+    chgrp -R 0 $SELENIUM_HOME /run /var/log/nginx && \
+    chmod -R g=u $SELENIUM_HOME /run /var/log/nginx && \
+    chmod a+x .vnc/xstartup && \
+    chmod a+x ./entrypoint.sh
 
 USER 1001
 
-ENTRYPOINT HOME=$SELENIUM_HOME vncserver $DISPLAY -fg -Log *:stderr:100
+ENTRYPOINT ["./entrypoint.sh"]
