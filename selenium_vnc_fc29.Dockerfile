@@ -48,7 +48,7 @@ RUN curl -LO https://github.com/mozilla/geckodriver/releases/download/$GECKODRIV
 ADD http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-$SELENIUM_VERSION.jar $SELENIUM_PATH
 
 # Add the xstartup file into the image and add config.
-COPY ./xstartup ./vncconfig .vnc/
+COPY ./xstartup ./config .vnc/
 
 # Create required dirs and files, change permissions in order to work in openshift
 RUN touch $SELENIUM_HOME/.Xauthority && \
@@ -59,4 +59,4 @@ RUN touch $SELENIUM_HOME/.Xauthority && \
 
 USER 1001
 
-ENTRYPOINT HOME=$SELENIUM_HOME vncserver $DISPLAY -fg -SecurityTypes None -Log *:stderr:100
+ENTRYPOINT HOME=$SELENIUM_HOME vncserver $DISPLAY -fg -Log *:stderr:100
