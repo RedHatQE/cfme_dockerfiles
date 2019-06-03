@@ -3,6 +3,7 @@ FROM cfmeqe/sel_base_fc29
 ENV SELENIUM_VERSION=3.141.59 \
     SELENIUM_HOME=/home/selenium \
     SELENIUM_PORT=4445 \
+    REVERSE_PROXY_PORT=4444 \
     FIREFOX_VERSION=60.4.0esr \
     GECKODRIVER_VERSION=v0.20.1 \
     DEFAULT_PROFILE_NAME=mylovelyprofile \
@@ -15,6 +16,9 @@ WORKDIR $SELENIUM_HOME
 
 # selenium server port
 EXPOSE $SELENIUM_PORT
+
+# reverse proxy port
+EXPOSE $REVERSE_PROXY_PORT
 
 # vnc port
 EXPOSE 5999
@@ -75,4 +79,4 @@ RUN touch $SELENIUM_HOME/.Xauthority && \
 
 USER 1001
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/home/selenium/entrypoint.sh"]
