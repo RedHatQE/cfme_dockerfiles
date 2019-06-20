@@ -1,15 +1,19 @@
 FROM cfmeqe/sel_base_fc29
 
-ENV SELENIUM_VERSION=3.141.59 \
+ENV SELENIUM_MAJOR_VERSION=3 \
+    SELENIUM_MINOR_VERSION=141 \
+    SELENIUM_PATCH_VERSION=59 \
     SELENIUM_HOME=/home/selenium \
     SELENIUM_PORT=4445 \
     REVERSE_PROXY_PORT=4444 \
-    FIREFOX_VERSION=60.4.0esr \
-    GECKODRIVER_VERSION=v0.20.1 \
+    VNC_PORT=5999 \
+    FIREFOX_VERSION=60.7.0esr \
+    GECKODRIVER_VERSION=v0.24.0 \
     DEFAULT_PROFILE_NAME=mylovelyprofile \
     DISPLAY=:99
 
-ENV SELENIUM_PATH=$SELENIUM_HOME/selenium-server/selenium-server-standalone.jar \
+ENV SELENIUM_VERSION=$SELENIUM_MAJOR_VERSION.$SELENIUM_MINOR_VERSION.$SELENIUM_PATCH_VERSION \
+    SELENIUM_PATH=$SELENIUM_HOME/selenium-server/selenium-server-standalone.jar \
     PATH=$SELENIUM_HOME/firefox:/opt/google/chrome:$PATH
 
 WORKDIR $SELENIUM_HOME
@@ -21,7 +25,7 @@ EXPOSE $SELENIUM_PORT
 EXPOSE $REVERSE_PROXY_PORT
 
 # vnc port
-EXPOSE 5999
+EXPOSE $VNC_PORT
 
 # chrome
 RUN curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
@@ -49,7 +53,7 @@ RUN curl -LO https://github.com/mozilla/geckodriver/releases/download/$GECKODRIV
     rm -f geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
 
 # selenium server
-ADD http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-$SELENIUM_VERSION.jar $SELENIUM_PATH
+ADD http://selenium-release.storage.googleapis.com/$SELENIUM_MAJOR_VERSION.$SELENIUM_MINOR_VERSION/selenium-server-standalone-$SELENIUM_VERSION.jar $SELENIUM_PATH
 
 # nginx starts 5 workers by default what's too much for one selenium server.
 # So, let's decrease it to 1
@@ -79,4 +83,4 @@ RUN touch $SELENIUM_HOME/.Xauthority && \
 
 USER 1001
 
-ENTRYPOINT ["/home/selenium/entrypoint.sh"]
+ENTRYPOINT ["bash", "-c", "$SELENIUM_HOME/entrypoint.sh"]
