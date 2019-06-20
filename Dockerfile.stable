@@ -83,4 +83,4 @@ RUN touch $SELENIUM_HOME/.Xauthority && \
 
 USER 1001
 
-ENTRYPOINT ["bash", "-c", "$SELENIUM_HOME/entrypoint.sh"]
+ENTRYPOINT ["sh", "-c", "$SELENIUM_HOME/entrypoint.sh"]
