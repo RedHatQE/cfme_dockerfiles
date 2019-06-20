@@ -22,7 +22,7 @@ RUN dnf -y update && \
                    dejavu-sans-fonts \
                    dejavu-serif-fonts \
                    xdotool \
-		           nginx && \
+                   nginx && \
     dnf clean all
 
 
